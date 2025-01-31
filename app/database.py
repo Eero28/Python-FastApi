@@ -4,25 +4,29 @@ import os
 from dotenv import load_dotenv
 from app.models import Base  
 
-# Load env variables 
 load_dotenv()
-
-
 
 DATABASE_URL = f"postgresql+asyncpg://{os.getenv('POSTGRES_USER')}:{os.getenv('POSTGRES_PASSWORD')}@{os.getenv('POSTGRES_HOST')}:{os.getenv('POSTGRES_PORT')}/{os.getenv('POSTGRES_DB')}"
 
-engine = create_async_engine(DATABASE_URL, echo=True)
 
-# SessionLocal for async database sessions
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine, class_=AsyncSession)
+engine = create_async_engine(DATABASE_URL, echo=False)
+
+
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine, class_=AsyncSession, expire_on_commit=False)
 
 # Create tables when app starts
 async def create_tables():
     async with engine.begin() as conn:
-        print("Creating tables if they don't exist...")
-        await conn.run_sync(Base.metadata.create_all)
-        print("✅ Tables created successfully.")
+        try:
+            print("Creating tables if they don't exist...")
+            await conn.run_sync(Base.metadata.create_all)  
+            print("Tables created successfully.")
+        except Exception as e:
+            print(f"Failed to create tables: {e}")
+
 
 async def get_db():
-    async with SessionLocal() as session:
-        yield session
+    async with SessionLocal() as db:  
+        yield db
+
+

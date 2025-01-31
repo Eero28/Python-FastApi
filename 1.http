@@ -1,16 +1,29 @@
-POST http://127.0.0.1:8000/users/
+POST http://127.0.0.1:8000/users/users
 Content-Type: application/json
 
 {
-  "username": "johndoe",
-  "email": "john@example.com",
-  "password": "securepassword",
+  "username": "1",
+  "email": "1@example.com",
+  "password": "1",
   "role": "user"
 }
 
 ###
 
-GET http://127.0.0.1:8000/users/
+POST http://127.0.0.1:8000/review/5
+Content-Type: application/json
+
+{
+  "reviewname": "Sandels",
+  "reviewDescription": "very good",
+  "reviewRating": 3.25,
+  "imageUrl": "user.jpg",
+  "category": "beer"
+}
+
+###
+
+GET http://127.0.0.1:8000/users/users
 
 ###
 
@@ -18,3 +31,17 @@ DELETE http://127.0.0.1:8000/users/1
 
 ###
 GET http://127.0.0.1:8000/users/3
+
+
+### login
+POST http://127.0.0.1:8000/auth/token
+Content-Type: application/json
+
+{
+  "email": "1@example.com",
+  "password": "1"
+}
+
+###
+GET http://127.0.0.1:8000/auth/protected
+Authorization: Bearer ytrhtrhrthtr.eyJzdWIiOirtyrtyI2IiyrtytrytrywiZXhwIjoxNzM4MzUxOTM5fQ.kKjI-zi7uyiolpjUuYci9Gscas6p0BK2y8GXoqwr4wB_4WLEoc-jQc

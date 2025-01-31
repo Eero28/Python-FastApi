@@ -1,8 +1,12 @@
 fastapi
 uvicorn
-sqlalchemy
+SQLAlchemy
 asyncpg
 pydantic
 alembic
 python-dotenv
-passlib
+"passlib[Bcrypt]"
+pyjwt
+python-multipart
+"python-jose[cryptography]"
+bcrypt==3.2.0

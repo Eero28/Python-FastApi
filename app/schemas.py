@@ -1,8 +1,6 @@
 from pydantic import BaseModel, EmailStr
-from typing import Optional
 from datetime import datetime
 
-# Response model for user without password (for security)
 class UserResponse(BaseModel):
     id_user: int
     username: str
@@ -10,26 +8,37 @@ class UserResponse(BaseModel):
     role: str
 
     class Config:
-        from_attributes = True  # Allows SQLAlchemy models to be converted to Pydantic
+        from_attributes = True  
 
 # Request model for user creation
 class UserCreate(BaseModel):
-    email: EmailStr
+    email: str
     password: str
     username: str
-    role: str = "user"  # Default role is 'user'
+    role: str = "user"  
 
 # Response model for reviews
 class ReviewResponse(BaseModel):
     id_review: int
     reviewname: str
-    reviewDescription: Optional[str] = None
-    reviewRating: Optional[float] = None
-    imageUrl: Optional[str] = None
-    category: Optional[str] = None
+    reviewDescription: str
+    reviewRating: float
+    imageUrl: str
+    category: str
     createdAt: datetime  
     updatedAt: datetime  
     user: UserResponse  
 
     class Config:
-        from_attributes = True  # Allows SQLAlchemy models to be converted to Pydantic
+        from_attributes = True  
+
+
+class CreateReview(BaseModel):
+    reviewname: str
+    reviewDescription: str
+    reviewRating: float
+    imageUrl: str
+    category: str  
+    
+    class Config:
+        from_attributes = True

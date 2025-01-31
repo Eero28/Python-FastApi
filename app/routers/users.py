@@ -4,21 +4,18 @@ from sqlalchemy.future import select
 from app.models import User
 from app.schemas import UserResponse, UserCreate
 from passlib.context import CryptContext
-from app.database import get_db
+from app.database import get_db  # Importing the get_db function
+from app.helpers.user import get_user, hash_password
 
-router = APIRouter()
-
-
-async def get_user(id_user: int, db: AsyncSession):
-    result = await db.execute(select(User).filter(User.id_user == id_user))
-    return result.scalar_one_or_none()  
-
-
+router = APIRouter(
+    prefix='/users',
+    tags=['users']
+)
 
 @router.get("/users/{id_user}", response_model=UserResponse)
 async def get_one_user(id_user: int, db: AsyncSession = Depends(get_db)):
     try:
-        user = await get_user(id_user,db)
+        user = await get_user(id_user, db)
         if user:
             return user
         else:
@@ -26,7 +23,7 @@ async def get_one_user(id_user: int, db: AsyncSession = Depends(get_db)):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to fetch user: {str(e)}")
 
-@router.get("/users/", response_model=list[UserResponse])
+@router.get("/users", response_model=list[UserResponse])
 async def get_users(db: AsyncSession = Depends(get_db)):
     try:
         result = await db.execute(select(User))
@@ -38,7 +35,7 @@ async def get_users(db: AsyncSession = Depends(get_db)):
 @router.delete("/users/{id_user}")
 async def delete_user(id_user: int, db: AsyncSession = Depends(get_db)):
     try:
-        user = await get_user(id_user, db)  
+        user = await get_user(id_user, db)
         if user:
             await db.delete(user)
             await db.commit()
@@ -48,17 +45,16 @@ async def delete_user(id_user: int, db: AsyncSession = Depends(get_db)):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to delete user: {str(e)}")
 
-# Route to create a new user
-@router.post("/users/", response_model=UserResponse)
+@router.post("/users", response_model=UserResponse)
 async def create_user(user: UserCreate, db: AsyncSession = Depends(get_db)):
     try:
-        pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-        hashed_password = pwd_context.hash(user.password)
+        hashed_password = hash_password(user.password)
         
         new_user = User(
             username=user.username,
             email=user.email,
-            password=hashed_password,  
+            password=hashed_password,
+            role=user.role
         )
         db.add(new_user)
         await db.commit()
