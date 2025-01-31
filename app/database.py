@@ -7,6 +7,8 @@ from app.models import Base
 # Load env variables 
 load_dotenv()
 
+
+
 DATABASE_URL = f"postgresql+asyncpg://{os.getenv('POSTGRES_USER')}:{os.getenv('POSTGRES_PASSWORD')}@{os.getenv('POSTGRES_HOST')}:{os.getenv('POSTGRES_PORT')}/{os.getenv('POSTGRES_DB')}"
 
 engine = create_async_engine(DATABASE_URL, echo=True)
@@ -20,3 +22,7 @@ async def create_tables():
         print("Creating tables if they don't exist...")
         await conn.run_sync(Base.metadata.create_all)
         print("✅ Tables created successfully.")
+
+async def get_db():
+    async with SessionLocal() as session:
+        yield session
