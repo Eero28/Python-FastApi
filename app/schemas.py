@@ -1,6 +1,7 @@
 from pydantic import BaseModel, EmailStr
 from datetime import datetime
 
+
 class UserResponse(BaseModel):
     id_user: int
     username: str
@@ -8,14 +9,14 @@ class UserResponse(BaseModel):
     role: str
 
     class Config:
-        from_attributes = True  
+        from_attributes = True
 
 
 class UserCreate(BaseModel):
     email: str
     password: str
     username: str
-    role: str = "user"  
+    role: str = "user"
 
 
 class ReviewResponse(BaseModel):
@@ -25,12 +26,12 @@ class ReviewResponse(BaseModel):
     reviewRating: float
     imageUrl: str
     category: str
-    createdAt: datetime  
-    updatedAt: datetime  
-    user: UserResponse  
+    createdAt: datetime
+    updatedAt: datetime
+    user: UserResponse
 
     class Config:
-        from_attributes = True  
+        from_attributes = True
 
 
 class CreateReview(BaseModel):
@@ -38,11 +39,11 @@ class CreateReview(BaseModel):
     reviewDescription: str
     reviewRating: float
     imageUrl: str
-    category: str  
-    
+    category: str
+
     class Config:
         from_attributes = True
-        
+
 
 class LikeResponse(BaseModel):
     id_like: int
@@ -51,11 +52,12 @@ class LikeResponse(BaseModel):
     createdAt: str
 
     class Config:
-        from_attributes = True  
+        from_attributes = True
 
 
 class LikeCreate(BaseModel):
     id_user: int
     id_review: int
+
     class Config:
-        from_attributes = True  
+        from_attributes = True

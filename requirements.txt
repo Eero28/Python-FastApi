@@ -10,4 +10,4 @@ pyjwt
 python-multipart
 python-jose[cryptography]
 bcrypt==3.2.0
-pytest
+black
