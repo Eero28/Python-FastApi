@@ -12,7 +12,13 @@ DATABASE_URL = f"postgresql+asyncpg://{os.getenv('POSTGRES_USER')}:{os.getenv('P
 engine = create_async_engine(DATABASE_URL, echo=False)
 
 
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine, class_=AsyncSession, expire_on_commit=False)
+SessionLocal = sessionmaker(
+    autocommit=False, 
+    autoflush=False, 
+    bind=engine, 
+    class_=AsyncSession, 
+    expire_on_commit=False
+)
 
 # Create tables when app starts
 async def create_tables():

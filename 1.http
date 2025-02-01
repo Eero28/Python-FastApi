@@ -44,4 +44,4 @@ Content-Type: application/json
 
 ###
 GET http://127.0.0.1:8000/auth/protected
-Authorization: Bearer ytrhtrhrthtr.eyJzdWIiOirtyrtyI2IiyrtytrytrywiZXhwIjoxNzM4MzUxOTM5fQ.kKjI-zi7uyiolpjUuYci9Gscas6p0BK2y8GXoqwr4wB_4WLEoc-jQc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2IiwiZXhwIjoxNzM4NDA0MzI3fQ.WI-jcMPauu1SyxUrRgo9j1f9CNVhMycMNAK3nP1ZvFY
