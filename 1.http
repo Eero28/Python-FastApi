@@ -10,7 +10,7 @@ Content-Type: application/json
 
 ###
 
-POST http://127.0.0.1:8000/review/5
+POST http://127.0.0.1:8000/reviews/review/1
 Content-Type: application/json
 
 {
@@ -45,3 +45,15 @@ Content-Type: application/json
 ###
 GET http://127.0.0.1:8000/auth/protected
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2IiwiZXhwIjoxNzM4NDA0MzI3fQ.WI-jcMPauu1SyxUrRgo9j1f9CNVhMycMNAK3nP1ZvFY
+
+###
+POST http://127.0.0.1:8000/likes
+Content-Type: application/json
+
+{
+ "id_user": 1,
+ "id_review": 1
+}
+
+###
+GET http://127.0.0.1:8000/likes

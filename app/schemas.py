@@ -10,14 +10,14 @@ class UserResponse(BaseModel):
     class Config:
         from_attributes = True  
 
-# Request model for user creation
+
 class UserCreate(BaseModel):
     email: str
     password: str
     username: str
     role: str = "user"  
 
-# Response model for reviews
+
 class ReviewResponse(BaseModel):
     id_review: int
     reviewname: str
@@ -42,3 +42,20 @@ class CreateReview(BaseModel):
     
     class Config:
         from_attributes = True
+        
+
+class LikeResponse(BaseModel):
+    id_like: int
+    id_review: int
+    id_user: int
+    createdAt: str
+
+    class Config:
+        from_attributes = True  
+
+
+class LikeCreate(BaseModel):
+    id_user: int
+    id_review: int
+    class Config:
+        from_attributes = True  
