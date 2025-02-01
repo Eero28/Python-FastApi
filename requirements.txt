@@ -5,8 +5,9 @@ asyncpg
 pydantic
 alembic
 python-dotenv
-"passlib[Bcrypt]"
+passlib[Bcrypt]
 pyjwt
 python-multipart
-"python-jose[cryptography]"
+python-jose[cryptography]
 bcrypt==3.2.0
+pytest

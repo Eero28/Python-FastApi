@@ -4,9 +4,6 @@ from app.database import create_tables
 from contextlib import asynccontextmanager
 
 
-
- 
-
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     print("Starting up...")
